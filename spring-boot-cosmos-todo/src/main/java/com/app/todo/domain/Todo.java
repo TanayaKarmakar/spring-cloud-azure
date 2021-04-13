@@ -10,6 +10,7 @@ public class Todo {
     private String id;
     private String name;
     private String description;
+    private boolean isDone;
 
     @PartitionKey
     private String userName; //partition key
@@ -44,5 +45,13 @@ public class Todo {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
     }
 }

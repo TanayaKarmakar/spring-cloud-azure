@@ -9,11 +9,11 @@ import java.util.List;
 public interface TodoService {
     List<TodoDTO> listTodos(String userName) throws BusinessException;
 
-    Todo getTodoById(String userName, String id) throws BusinessException;
+    TodoDTO getTodoById(String userName, String id) throws BusinessException;
 
     TodoDTO createTodo(TodoDTO todo) throws BusinessException;
 
-    Todo updateTodo(String userName, TodoDTO todo) throws BusinessException;
+    TodoDTO updateTodo(TodoDTO todo) throws BusinessException;
 
-    Todo deleteTodo(String userName, String id) throws BusinessException;
+    void deleteTodo(String userName, String id) throws BusinessException;
 }

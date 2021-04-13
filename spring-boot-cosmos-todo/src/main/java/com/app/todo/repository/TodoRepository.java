@@ -10,4 +10,7 @@ import java.util.List;
 public interface TodoRepository extends CosmosRepository<Todo, String> {
     @Query(value = "select * from c where c.userName = @userName")
     List<Todo> findTodosByUserName(@Param("userName") String userName);
+
+    @Query(value = "select * from c where c.userName = @userName and c.id = @id")
+    Todo findTodoByUserNameAndId(@Param("userName") String userName, @Param("id") String id);
 }

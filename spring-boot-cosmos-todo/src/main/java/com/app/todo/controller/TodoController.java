@@ -27,7 +27,6 @@ public class TodoController {
         if(!headers.containsKey(AppConstants.USER_NAME))
             throw new ApiException(AppConstants.USER_ID_NOT_PRESENT);
 
-        List<TodoDTO> todos = null;
         try {
             return todoService.listTodos(headers.get(AppConstants.USER_NAME).get(0));
         } catch(BusinessException exception) {
@@ -37,32 +36,56 @@ public class TodoController {
 
     @GetMapping("/{id}")
     public TodoDTO getTodoById(@RequestHeader HttpHeaders headers, @PathVariable String id) throws ApiException {
-        return null;
+        if(!headers.containsKey(AppConstants.USER_NAME))
+            throw new ApiException(AppConstants.USER_ID_NOT_PRESENT);
+        try {
+            String userName = headers.get(AppConstants.USER_NAME).get(0);
+            return todoService.getTodoById(userName, id);
+        } catch (BusinessException exception) {
+            throw new ApiException(exception);
+        }
     }
 
     @PostMapping
     public TodoDTO createTodo(@RequestHeader HttpHeaders headers, @RequestBody TodoDTO todo) throws ApiException {
         if(!headers.containsKey(AppConstants.USER_NAME))
             throw new ApiException(AppConstants.USER_ID_NOT_PRESENT);
-        TodoDTO updatedTodo = null;
+        TodoDTO createdTodo = null;
         try {
             String userName = headers.get(AppConstants.USER_NAME).get(0);
             todo.setUserName(userName);
-            updatedTodo = todoService.createTodo(todo);
+            createdTodo = todoService.createTodo(todo);
         } catch (BusinessException exception) {
             throw new ApiException(exception);
         }
 
-        return updatedTodo;
+        return createdTodo;
     }
 
     @PutMapping
     public TodoDTO updateTodo(@RequestHeader HttpHeaders headers, @RequestBody TodoDTO todo) throws ApiException {
-        return null;
+        if(!headers.containsKey(AppConstants.USER_NAME))
+            throw new ApiException(AppConstants.USER_ID_NOT_PRESENT);
+        TodoDTO updatedTodo = null;
+        try {
+            String userName = headers.get(AppConstants.USER_NAME).get(0);
+            todo.setUserName(userName);
+            return todoService.updateTodo(todo);
+        } catch (BusinessException exception) {
+            throw new ApiException(exception);
+        }
     }
 
     @DeleteMapping("/{id}")
     public String deleteTodo(@RequestHeader HttpHeaders headers, @PathVariable String id) throws ApiException {
-        return null;
+        if(!headers.containsKey(AppConstants.USER_NAME))
+            throw new ApiException(AppConstants.USER_ID_NOT_PRESENT);
+        try {
+            String userName = headers.get(AppConstants.USER_NAME).get(0);
+            todoService.deleteTodo(userName, id);
+            return "Success";
+        } catch (BusinessException exception) {
+            throw new ApiException(exception);
+        }
     }
 }
