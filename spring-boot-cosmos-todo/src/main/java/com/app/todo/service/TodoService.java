@@ -1,6 +1,5 @@
 package com.app.todo.service;
 
-import com.app.todo.domain.Todo;
 import com.app.todo.dto.TodoDTO;
 import com.app.todo.exception.BusinessException;
 
