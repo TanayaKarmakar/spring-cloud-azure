@@ -34,7 +34,7 @@ public class TodoController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}")    
     public TodoDTO getTodoById(@RequestHeader HttpHeaders headers, @PathVariable String id) throws ApiException {
         if(!headers.containsKey(AppConstants.USER_NAME))
             throw new ApiException(AppConstants.USER_ID_NOT_PRESENT);
